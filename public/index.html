@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ilm Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-book-quran"></i> Ilm Library</h1>
+                <p>Organize and track your Islamic book collection</p>
+            </div>
+            <button class="add-book-btn" onclick="openAddBookModal()">
+                <i class="fas fa-plus"></i> Add New Book
+            </button>
+        </header>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <i class="fas fa-books"></i>
+                <div>
+                    <span class="stat-number" id="totalBooks">0</span>
+                    <span class="stat-label">Total Books</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <span class="stat-number" id="completedBooks">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-book-open"></i>
+                <div>
+                    <span class="stat-number" id="inProgressBooks">0</span>
+                    <span class="stat-label">In Progress</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-bookmark"></i>
+                <div>
+                    <span class="stat-number" id="notStartedBooks">0</span>
+                    <span class="stat-label">Not Started</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by title, author, or description...">
+            </div>
+            <div class="filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Hadith">Hadith</option>
+                    <option value="Tafsir">Tafsir</option>
+                    <option value="Seerah">Seerah</option>
+                    <option value="Fiqh">Fiqh</option>
+                    <option value="Aqeedah">Aqeedah</option>
+                    <option value="History">History</option>
+                    <option value="Other">Other</option>
+                </select>
+                <select id="statusFilter">
+                    <option value="">All Status</option>
+                    <option value="not_started">Not Started</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+                <select id="languageFilter">
+                    <option value="">All Languages</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="English">English</option>
+                    <option value="Urdu">Urdu</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="books-grid" id="booksGrid">
+            <!-- books loaded-->
+        </div>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Loading books...</span>
+        </div>
+    </div>
+
+    <!-- adding book modals-->
+    <div class="modal" id="addBookModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus"></i> Add New Book</h2>
+                <button class="close-btn" onclick="closeAddBookModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addBookForm">
+                <div class="form-group">
+                    <label for="bookTitle">Title *</label>
+                    <input type="text" id="bookTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookAuthor">Author *</label>
+                    <input type="text" id="bookAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookDescription">Description</label>
+                    <textarea id="bookDescription" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bookCategory">Category</label>
+                        <select id="bookCategory">
+                            <option value="Hadith">Hadith</option>
+                            <option value="Tafsir">Tafsir</option>
+                            <option value="Seerah">Seerah</option>
+                            <option value="Fiqh">Fiqh</option>
+                            <option value="Aqeedah">Aqeedah</option>
+                            <option value="History">History</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookLanguage">Language</label>
+                        <select id="bookLanguage">
+                            <option value="Arabic">Arabic</option>
+                            <option value="English">English</option>
+                            <option value="Urdu">Urdu</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bookPages">Number of Pages</label>
+                    <input type="number" id="bookPages" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="bookNotes">Notes</label>
+                    <textarea id="bookNotes" rows="2" placeholder="Personal notes about this book..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAddBookModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Book Details Modal -->
+    <div class="modal" id="bookDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="bookDetailsTitle"></h2>
+                <button class="close-btn" onclick="closeBookDetailsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="bookDetailsContent">
+                <!-- book details -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
