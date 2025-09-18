@@ -17,7 +17,6 @@ body {
     padding: 20px;
 }
 
-/* Header */
 .header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -68,7 +67,6 @@ body {
     box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
 }
 
-/* Stats Section */
 .stats-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -167,7 +165,6 @@ body {
     border-color: #4a90e2;
 }
 
-/* Books Grid */
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -321,7 +318,6 @@ body {
     color: #e53e3e;
 }
 
-/* Form Styles */
 form {
     padding: 30px;
 }
@@ -399,7 +395,6 @@ form {
     background: #edf2f7;
 }
 
-/* Loading */
 .loading {
     display: none;
     text-align: center;
@@ -414,7 +409,6 @@ form {
     display: block;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
